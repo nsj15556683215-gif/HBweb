@@ -41,6 +41,11 @@ export function Footer() {
                 </button>
               </li>
               <li>
+                <button onClick={() => scrollToSection('products')} className="hover:text-white">
+                  产品中心
+                </button>
+              </li>
+              <li>
                 <button onClick={() => scrollToSection('contact')} className="hover:text-white">
                   联系我们
                 </button>
