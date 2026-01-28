@@ -1,46 +1,19 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../components/button';
-import { useEffect, useState, useRef } from 'react';
+import { heroData, heroTool} from '../data/hero';
 
 export function Hero() {
-  const images = ['/header-1.jpg', '/header-2.jpg'];
-  const [index, setIndex] = useState(0);
-  const intervalRef = useRef<number | null>(null);
+  const { images, autoplayInterval, text } = heroData;
 
-  const startAutoPlay = () => {
-    stopAutoPlay();
-    intervalRef.current = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-  };
-
-  const stopAutoPlay = () => {
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
-
-  useEffect(() => {
-    startAutoPlay();
-    return stopAutoPlay;
-  }, []);
-
-  const prevImage = () => {
-    stopAutoPlay();
-    setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    startAutoPlay();
-  };
-
-  const nextImage = () => {
-    stopAutoPlay();
-    setIndex((prev) => (prev + 1) % images.length);
-    startAutoPlay();
-  };
+  const { index, prev, next } = heroTool(
+    images.length,
+    autoplayInterval
+  );
 
   const scrollToContact = () => {
-    const el = document.getElementById('contact');
-    el?.scrollIntoView({ behavior: 'smooth' });
+    document
+      .getElementById('contact')
+      ?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -58,7 +31,7 @@ export function Hero() {
 
       {/* 左按钮 */}
       <button
-        onClick={prevImage}
+        onClick={prev}
         className="
           absolute left-6 top-1/2 -translate-y-1/2 z-20
           w-16 h-24 rounded-md
@@ -71,7 +44,7 @@ export function Hero() {
 
       {/* 右按钮 */}
       <button
-        onClick={nextImage}
+        onClick={next}
         className="
           absolute right-6 top-1/2 -translate-y-1/2 z-20
           w-16 h-24 rounded-md
@@ -85,17 +58,18 @@ export function Hero() {
       {/* 文案 */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-5xl md:text-6xl mb-6">
-          专业 PVC 压延设备制造商
+          {text.title}
         </h1>
         <p className="text-xl md:text-2xl mb-8">
-          提供高效、稳定、智能的压延生产线解决方案
+          {text.subtitle}
         </p>
         <Button
           size="lg"
           onClick={scrollToContact}
           className="bg-blue-600 hover:bg-blue-700"
         >
-          立即咨询 <ArrowRight className="ml-2" size={20} />
+          {text.button}
+          <ArrowRight className="ml-2" size={20} />
         </Button>
       </div>
     </section>

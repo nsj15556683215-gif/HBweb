@@ -85,7 +85,7 @@ export function Header() {
             onClick={() => scrollToSection("home")}
             className="flex items-center gap-4"
           >
-            <img src="/logo.svg" alt="Logo" className="h-8" />
+            <img src="/img/header/logo.svg" alt="Logo" className="h-8" />
             <div>
               <h1 className="text-lg font-bold text-blue-400">
                 海宁市华博机械有限公司

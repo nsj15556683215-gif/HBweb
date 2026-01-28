@@ -1,19 +1,17 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { Phone, Mail, MapPin, Clock, Check, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { Card } from '../components/card';
+import {
+  contactInfo,
+  emailConfig,
+  contactText,
+} from '../data/contact';
 
 export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'success' | 'error' | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const contactInfo = [
-    { icon: Phone, title: '联系电话', content: '+86 13817239269' },
-    { icon: Mail, title: '电子邮箱', content: '13817239269@163.com' },
-    { icon: MapPin, title: '公司地址', content: '中国浙江省海宁市仙侠路112号' },
-    { icon: Clock, title: '工作时间', content: '周一至周五 8:00-17:00' },
-  ];
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,10 +22,10 @@ export function Contact() {
 
     try {
       await emailjs.sendForm(
-        'service_y7jul6e',      // service ID
-        'template_mph5q0k',     // template ID
+        emailConfig.serviceId,
+        emailConfig.templateId,
         formRef.current,
-        'iCBDP5ccw6fJHZQAV'     // public key
+        emailConfig.publicKey
       );
 
       setStatus('success');
@@ -60,19 +58,21 @@ export function Contact() {
 
         {/* 表单 */}
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
-          <h3 className="text-2xl font-semibold text-center mb-8">在线咨询</h3>
+          <h3 className="text-2xl font-semibold text-center mb-8">
+            {contactText.title}
+          </h3>
 
           <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
             <input
               name="user_name"
-              placeholder="姓名"
+              placeholder={contactText.placeholders.name}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
 
             <input
               name="user_phone"
-              placeholder="电话"
+              placeholder={contactText.placeholders.phone}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
@@ -80,7 +80,7 @@ export function Contact() {
             <input
               name="user_email"
               type="email"
-              placeholder="邮箱"
+              placeholder={contactText.placeholders.email}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
@@ -88,7 +88,7 @@ export function Contact() {
             <textarea
               name="message"
               rows={5}
-              placeholder="咨询内容"
+              placeholder={contactText.placeholders.message}
               required
               className="w-full px-4 py-3 border rounded-lg resize-none"
             />
@@ -98,7 +98,7 @@ export function Contact() {
               disabled={loading}
               className="block mx-auto bg-blue-600 text-white px-14 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-60"
             >
-              {loading ? '发送中...' : '立即提交'}
+              {loading ? contactText.submitting : contactText.submit}
             </button>
           </form>
         </div>
@@ -107,7 +107,7 @@ export function Contact() {
         {status === 'success' && (
           <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg flex gap-2 z-50">
             <Check className="w-5 h-5" />
-            提交成功，我们会尽快联系您
+            {contactText.success}
           </div>
         )}
 
@@ -115,7 +115,7 @@ export function Contact() {
         {status === 'error' && (
           <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg flex gap-2 z-50">
             <X className="w-5 h-5" />
-            发送失败，请稍后再试
+            {contactText.error}
           </div>
         )}
       </div>

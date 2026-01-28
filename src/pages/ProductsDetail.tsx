@@ -1,19 +1,7 @@
 import { NavLink, useParams } from "react-router-dom";
 import { Hero } from "./Hero";
+import { product_param } from "@/data/products";
 
-const categories = [
-  { name: "自动计量系统",  slug: "auto-dosing" },
-  { name: "高速混合机",    slug: "super-mixer" },
-  { name: "冷却搅拌机",    slug: "cooling-mixer" },
-  { name: "万马力机",      slug: "banbury-machine" },
-  { name: "轧轮机",        slug: "mixing-roll" },
-  { name: "过滤机",        slug: "strainer" },
-  { name: "压延主机",      slug: "calender" },
-  { name: "压延后端设备",  slug: "post-calender" },
-  { name: "卷取机",        slug: "winder" },
-  { name: "贴合机",        slug: "laminating-machine" },
-  { name: "行星挤出机",    slug: "planetary-extruder" },
-];
 
 // 👉 按分类分组的产品数据
 type ProductCard = {
@@ -224,7 +212,7 @@ const productMap: Record<string, ProductCard[]> = {
 export default function ProductsDetail() {
   const { slug } = useParams<{ slug: string }>();
 
-  const currentCategory = categories.find((c) => c.slug === slug);
+  const currentCategory = product_param.find((c) => c.slug === slug);
   const products = productMap[slug || ""] || [];
 
   return (
@@ -236,7 +224,7 @@ export default function ProductsDetail() {
         <h2 className="mb-6 text-lg font-semibold">产品中心</h2>
 
         <nav className="space-y-2">
-          {categories.map((item) => (
+          {product_param.map((item) => (
             <NavLink
               key={item.slug}
               to={`/products/${item.slug}`}
@@ -247,7 +235,7 @@ export default function ProductsDetail() {
                   : "text-gray-700 hover:bg-gray-100"}`
               }
             >
-              {item.name}
+              {item.title}
             </NavLink>
           ))}
         </nav>
@@ -256,7 +244,7 @@ export default function ProductsDetail() {
       {/* 右侧产品区 */}
       <main className="flex-1 p-8">
         <h1 className="mb-6 text-2xl font-bold">
-          {currentCategory?.name || "产品详情"}
+          {currentCategory?.title || "产品详情"}
         </h1>
 
         {products.length === 0 ? (
