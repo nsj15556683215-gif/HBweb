@@ -1,4 +1,24 @@
+import { useNavigate } from 'react-router-dom';
+
 export function Footer() {
+  const navigate = useNavigate();
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  const goProduct = (slug: string) => {
+    navigate(`/products/${slug}`);
+  };
+
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,39 +30,50 @@ export function Footer() {
           <div>
             <h3 className="text-xl mb-4">快速链接</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#home" className="hover:text-white transition-colors">首页</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">公司简介</a></li>
-              <li><a href="#products" className="hover:text-white transition-colors">产品中心</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">联系我们</a></li>
+              <li>
+                <button onClick={() => scrollToSection('home')} className="hover:text-white">
+                  首页
+                </button>
+              </li>
+              <li>
+                <button onClick={() => scrollToSection('about')} className="hover:text-white">
+                  公司简介
+                </button>
+              </li>
+              <li>
+                <button onClick={() => scrollToSection('contact')} className="hover:text-white">
+                  联系我们
+                </button>
+              </li>
             </ul>
           </div>
 
-          {/* 产品中心（三列） */}
+          {/* 产品中心 */}
           <div>
             <h3 className="text-xl mb-4">产品中心</h3>
 
             <div className="grid grid-cols-3 gap-x-3">
               {/* 第一列 */}
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">自动计量系统</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">高速混合机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">冷却搅拌机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">万马力机</a></li>
+                <li><button onClick={() => goProduct('auto-dosing')} className="hover:text-white">自动计量系统</button></li>
+                <li><button onClick={() => goProduct('super-mixer')} className="hover:text-white">高速混合机</button></li>
+                <li><button onClick={() => goProduct('cooling-mixer')} className="hover:text-white">冷却搅拌机</button></li>
+                <li><button onClick={() => goProduct('banbury-machine')} className="hover:text-white">万马力机</button></li>
               </ul>
 
               {/* 第二列 */}
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">轧轮机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">过滤机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">压延主机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">压延后段设备</a></li>
+                <li><button onClick={() => goProduct('mixing-roll')} className="hover:text-white">轧轮机</button></li>
+                <li><button onClick={() => goProduct('strainer')} className="hover:text-white">过滤机</button></li>
+                <li><button onClick={() => goProduct('calender')} className="hover:text-white">压延主机</button></li>
+                <li><button onClick={() => goProduct('post-calender')} className="hover:text-white">压延后段设备</button></li>
               </ul>
 
               {/* 第三列 */}
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">卷取机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">贴合机</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">行星挤出机</a></li>
+                <li><button onClick={() => goProduct('winder')} className="hover:text-white">卷取机</button></li>
+                <li><button onClick={() => goProduct('laminating-machine')} className="hover:text-white">贴合机</button></li>
+                <li><button onClick={() => goProduct('planetary-extruder')} className="hover:text-white">行星挤出机</button></li>
               </ul>
             </div>
           </div>
