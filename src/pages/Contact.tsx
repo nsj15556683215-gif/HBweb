@@ -2,11 +2,9 @@ import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { Check, X } from 'lucide-react';
 import { Card } from '../components/card';
-import {
-  contactInfo,
-  emailConfig,
-  contactText,
-} from '../data/contact';
+import { emailConfig } from '@/data/configInfo/configInfo';
+import { fromText } from '@/data/textInfo/mapInfo';
+import { contactStats } from '@/data/contact';
 
 export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -45,7 +43,7 @@ export function Contact() {
 
         {/* 联系信息 */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {contactInfo.map((info, i) => (
+          {contactStats.map((info, i) => (
             <Card key={i} className="p-6 text-center">
               <div className="flex justify-center mb-2">
                 <info.icon className="w-6 h-6 text-blue-600" />
@@ -59,20 +57,20 @@ export function Contact() {
         {/* 表单 */}
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
           <h3 className="text-2xl font-semibold text-center mb-8">
-            {contactText.title}
+            {fromText.title}
           </h3>
 
           <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
             <input
               name="user_name"
-              placeholder={contactText.placeholders.name}
+              placeholder={fromText.placeholders.name}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
 
             <input
               name="user_phone"
-              placeholder={contactText.placeholders.phone}
+              placeholder={fromText.placeholders.phone}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
@@ -80,7 +78,7 @@ export function Contact() {
             <input
               name="user_email"
               type="email"
-              placeholder={contactText.placeholders.email}
+              placeholder={fromText.placeholders.email}
               required
               className="w-full px-4 py-3 border rounded-lg"
             />
@@ -88,7 +86,7 @@ export function Contact() {
             <textarea
               name="message"
               rows={5}
-              placeholder={contactText.placeholders.message}
+              placeholder={fromText.placeholders.message}
               required
               className="w-full px-4 py-3 border rounded-lg resize-none"
             />
@@ -98,7 +96,7 @@ export function Contact() {
               disabled={loading}
               className="block mx-auto bg-blue-600 text-white px-14 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-60"
             >
-              {loading ? contactText.submitting : contactText.submit}
+              {loading ? fromText.submitting : fromText.submit}
             </button>
           </form>
         </div>
@@ -107,7 +105,7 @@ export function Contact() {
         {status === 'success' && (
           <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg flex gap-2 z-50">
             <Check className="w-5 h-5" />
-            {contactText.success}
+            {fromText.success}
           </div>
         )}
 
@@ -115,7 +113,7 @@ export function Contact() {
         {status === 'error' && (
           <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg flex gap-2 z-50">
             <X className="w-5 h-5" />
-            {contactText.error}
+            {fromText.error}
           </div>
         )}
       </div>

@@ -1,4 +1,7 @@
-import { advantages } from "../data/advantages";
+import { advantageStats } from "@/data/advantages"; 
+import { textTitle } from "@/data/textInfo/headInfo";
+import { textSolgan } from "@/data/textInfo/solganInfo";
+
 
 export function Advantages() {
   
@@ -7,16 +10,20 @@ export function Advantages() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 标题 */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-semibold mb-4">技术优势</h2>
+          <h2 className="text-4xl font-semibold mb-4">{textTitle.advantagesTitle}</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
           <p className="text-xl text-gray-600">
-            以设备可靠为核心，为客户创造更大价值
+              {textSolgan.advantagesSolgan}
           </p>
         </div>
 
         {/* 优势卡片 */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {advantages.map((advantage, index) => (
+          {advantageStats.map((stat, index) => {
+          
+          
+            const Icon = stat.icon; // 正确用法
+            return (
             <div
               key={index}
               className="
@@ -28,18 +35,19 @@ export function Advantages() {
               "
             >
               <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mx-auto mb-6">
-                <advantage.icon className="w-8 h-8 text-blue-600" />
+                <Icon className="w-8 h-8 text-blue-600" />
               </div>
 
               <h3 className="text-xl font-semibold mb-4">
-                {advantage.title}
+                {stat.title}
               </h3>
               
               <p className=" max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed text-justify ">
-                {advantage.description}
+                {stat.description}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

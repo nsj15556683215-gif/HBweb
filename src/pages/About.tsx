@@ -1,12 +1,8 @@
 import { ImageWithFallback } from '../components/ImageWithFallback';
-import {
-  aboutImage,
-  cnProfile,
-  cnProfileExtra,
-  enProfile,
-  enProfileExtra,
-  stats,
-} from '../data/about';
+import { aboutStats } from '@/data/about';
+import { aboutImage } from '@/data/imgInfo/imgInfo';
+import { companyInfo } from '@/data/textInfo/companyProfile';
+import { textTitle } from '@/data/textInfo/headInfo';
 
 export function About() {
   return (
@@ -17,8 +13,8 @@ export function About() {
           {/* 图片 */}
           <div className="h-full">
             <ImageWithFallback
-              src={aboutImage.src}
-              alt={aboutImage.alt}
+              src={ aboutImage.src }
+              alt={ aboutImage.alt }
               className="rounded-lg shadow-lg w-full h-full"
             />
           </div>
@@ -27,22 +23,22 @@ export function About() {
           <div>
             {/* 中文标题 */}
             <h3 className="text-center text-4xl mb-2 font-medium">
-              公司简介
+              { textTitle.cnCompanyProfile }
             </h3>
             <div className="w-40 h-1 bg-blue-600 mx-auto mb-5"></div>
  
             {/* 中文正文 */}
             <p className="text-lg text-gray-700 leading-relaxed text-justify mb-6">
-              {cnProfile}
+              { companyInfo.cnProfile }
             </p>
 
             <p className="text-lg text-gray-700 leading-relaxed text-justify mb-8">
-              {cnProfileExtra}
+              { companyInfo.cnProfileExtra }
             </p>
 
             {/* 英文标题 */}
             <h3 className="text-center text-4xl mb-2 font-medium">
-              Company Profile
+              { textTitle.enCompanyProfile }
             </h3>
             <div className="w-80 h-1 bg-blue-600 mx-auto mb-5"></div>
 
@@ -51,22 +47,22 @@ export function About() {
               lang="en"
               className="text-lg text-gray-700 leading-relaxed text-justify mb-6"
             >
-              {enProfile}
+              { companyInfo.enProfile }
             </p>
 
             <p
               lang="en"
               className="text-lg text-gray-700 leading-relaxed text-justify"
             >
-              {enProfileExtra}
+              { companyInfo.enProfileExtra }
             </p>
           </div>
         </div>
 
         {/* 底部数据卡片 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon; // ✅ 正确用法
+          {aboutStats.map((stat, index) => {
+            const Icon = stat.icon; // 正确用法
 
             return (
               <div

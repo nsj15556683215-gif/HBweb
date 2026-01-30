@@ -1,16 +1,18 @@
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { MapPin, CheckCircle } from 'lucide-react';
 import { cases } from '@/data/cases';
+import { textTitle } from '@/data/textInfo/headInfo';
+import { textSolgan } from '@/data/textInfo/solganInfo';
 export function Cases() {
   return (
     <section id="cases" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 标题 */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-semibold mb-4">案例展示</h2>
+          <h2 className="text-4xl font-semibold mb-4">{textTitle.caseTitle}</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
           <p className="text-xl text-gray-600">
-            服务全球客户，创造卓越成果
+            {textSolgan.caseSolgan}
           </p>
         </div>
 

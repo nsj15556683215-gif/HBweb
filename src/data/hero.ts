@@ -1,19 +1,13 @@
 // src/data/hero.ts
 import { useEffect, useRef, useState } from 'react';
+import { heroImages } from './imgInfo/imgInfo';
+import { heroText } from './textInfo/mapInfo';
+import { heroImageSwitchDelay } from './configInfo/configInfo';
 
 export const heroData = {
-  images: [
-    '/img/hero/hero-1.jpg',
-    '/img/hero/hero-2.jpg',
-  ],
-
-  autoplayInterval: 5000,
-
-  text: {
-    title: '专业 PVC 压延设备制造商',
-    subtitle: '提供高效、稳定、智能的压延生产线解决方案',
-    button: '立即咨询',
-  },
+  images: heroImages,
+  text: heroText,
+  autoplayInterval: heroImageSwitchDelay,
 };
 
 export function heroTool(
